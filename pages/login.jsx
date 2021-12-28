@@ -15,6 +15,9 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+function handleClick(something) {
+  console.log(something);
+}
 
 const login = () => {
   return (
@@ -31,9 +34,7 @@ const login = () => {
                 <TextField id="standard-password-input" label="password" type="password" variant="standard" />
               </Grid>
               <Grid item xs={12}>
-                <Link href="/">
-                  <Button variant="outlined">Login</Button>
-                </Link>
+                <Button variant="outlined" onClick={() => handleClick(username.value)}>Login</Button>
               </Grid>
             </Grid>
           </Item>
