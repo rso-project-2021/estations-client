@@ -7,6 +7,10 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Router from 'next/router'
+import cookie from 'cookie-cutter'
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -15,8 +19,43 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function handleClick(something) {
-  console.log(something);
+
+
+const loginUser = async event => {
+  event.preventDefault()
+
+  const username = event.target.username.value;
+  const password = event.target.password.value;
+
+  console.log(username + "," + password);
+
+  const url = process.env.NEXT_PUBLIC_AWS_API + "/user-service/v1/users/login";
+  const res = await fetch(url, {
+    body: JSON.stringify({
+      username: username,
+      password: password
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST'
+  })
+
+  if(res.status == 200) {
+
+    const result = await res.json();
+    console.log(result);
+
+    if (typeof window !== "undefined") {
+      cookie.set('user_id', result.user_id);
+      Router.push('/');
+    }
+    
+  } else {
+    console.log(res.status);
+  }
+
+  // result.user => 'Ada Lovelace'
 }
 
 const login = () => {
@@ -26,17 +65,19 @@ const login = () => {
         <Box m={3} pt={3}>
           <Item>
             <h1 style={{ textAlign: 'center' }}>Login page</h1>
-            <Grid container spacing={2} alignItems="center" justifyContent="center" direction="column">
-              <Grid item xs={12}>
-                <TextField id="outlined-basic" label="username" variant="standard" />
+            <form onSubmit={loginUser}>
+              <Grid container spacing={2} alignItems="center" justifyContent="center" direction="column">
+                <Grid item xs={12}>
+                  <TextField id="username" label="username" variant="standard" />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField id="password" label="password" type="password" variant="standard" />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button type='submit' variant="outlined">Login</Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField id="standard-password-input" label="password" type="password" variant="standard" />
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="outlined" onClick={() => handleClick(username.value)}>Login</Button>
-              </Grid>
-            </Grid>
+            </form>
           </Item>
         </Box>
       </Container>

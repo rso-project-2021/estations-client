@@ -6,6 +6,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Link from "next/link"
+import Router from 'next/router'
+import cookie from 'cookie-cutter'
+
+const logout = async event => {
+  event.preventDefault()
+  cookie.set('user_id');
+  Router.push('/login')
+}
 
 const Nav = () => {
   return (
@@ -22,7 +30,7 @@ const Nav = () => {
             <Button color="inherit">Profile</Button>
           </Link>
           <Link href="/login">
-            <Button color="inherit">Logout</Button>
+            <Button onClick={logout} color="inherit">Logout</Button>
           </Link>
         </Toolbar>
       </AppBar>

@@ -42,6 +42,7 @@ function Home({ stations }) {
               <TableHead>
                 <TableRow>
                   <TableCell>Station Name</TableCell>
+                  <TableCell align="right">ID</TableCell>
                   <TableCell align="right">Provider</TableCell>
                   <TableCell align="right">Latitude</TableCell>
                   <TableCell align="right">Longitude</TableCell>
@@ -54,6 +55,7 @@ function Home({ stations }) {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">{station.name}</TableCell>
+                    <TableCell align="right">{station.station_id}</TableCell>
                     <TableCell align="right">{station.provider}</TableCell>
                     <TableCell align="right">{station.lat}</TableCell>
                     <TableCell align="right">{station.lng}</TableCell>
@@ -69,7 +71,7 @@ function Home({ stations }) {
 }
 
 export async function getStaticProps(context) {
-  const url = process.env.AWS_API + "/station-service/v1/stations?offset=0&limit=10";
+  const url = process.env.NEXT_PUBLIC_AWS_API + "/station-service/v1/stations?offset=0&limit=10";
   const res = await fetch(url);
   const stations = await res.json()
 

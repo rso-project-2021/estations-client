@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import Cookies from 'cookies'
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -26,6 +27,9 @@ const profile = ({ user }) => {
               <h1 style={{ textAlign: 'center' }}>Profile</h1>
             </Grid>
             <Grid item xs={12}>
+              <h3 style={{ textAlign: 'center' }}>{user.user_id}</h3>
+            </Grid>
+            <Grid item xs={12}>
               <h3 style={{ textAlign: 'center' }}>{user.username}</h3>
             </Grid>
             <Grid item xs={12}>
@@ -41,9 +45,13 @@ const profile = ({ user }) => {
   )
 }
 
-export async function getStaticProps(context) {
-  const userID = 1
-  const url = process.env.AWS_API + "/user-service/v1/users/" + userID;
+export async function getServerSideProps(context) {
+
+  // get user id from cookies
+  const cookies = new Cookies(context.req, context.res)
+  const userID = cookies.get('user_id')
+
+  const url = process.env.NEXT_PUBLIC_AWS_API + "/user-service/v1/users/" + userID;
   const res = await fetch(url);
   const user = await res.json()
 

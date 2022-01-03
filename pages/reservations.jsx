@@ -16,6 +16,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Cookies from 'cookies'
 
 const reservations = ({ reservations }) => {
   return (
@@ -34,6 +35,7 @@ const reservations = ({ reservations }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Station ID</TableCell>
+                  <TableCell align="right">ID</TableCell>
                   <TableCell align="right">Start</TableCell>
                   <TableCell align="right">End</TableCell>
                 </TableRow>
@@ -45,6 +47,7 @@ const reservations = ({ reservations }) => {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">{reservation.station_id}</TableCell>
+                    <TableCell align="right">{reservation.reservation_id}</TableCell>
                     <TableCell align="right">{reservation.start}</TableCell>
                     <TableCell align="right">{reservation.end}</TableCell>
                   </TableRow>
@@ -58,9 +61,13 @@ const reservations = ({ reservations }) => {
   );
 }
 
-export async function getStaticProps(context) {
-  const userID = 1
-  const url = process.env.AWS_API + "/reservation-service/v1/reservations/user/" + userID;
+export async function getServerSideProps(context) {
+
+  // get user id from cookies
+  const cookies = new Cookies(context.req, context.res)
+  const userID = cookies.get('user_id')
+
+  const url = process.env.NEXT_PUBLIC_AWS_API + "/reservation-service/v1/reservations/user/" + userID;
   const res = await fetch(url);
   const reservations = await res.json()
 
