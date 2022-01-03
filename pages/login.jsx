@@ -1,8 +1,6 @@
 import Button from '@mui/material/Button';
-import CardHeader from '@mui/material/CardHeader';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
-import Link from "next/link"
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -10,16 +8,11 @@ import Grid from '@mui/material/Grid';
 import Router from 'next/router'
 import cookie from 'cookie-cutter'
 
-
-
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary,
 }));
-
-
 
 const loginUser = async event => {
   event.preventDefault()
@@ -41,7 +34,7 @@ const loginUser = async event => {
     method: 'POST'
   })
 
-  if(res.status == 200) {
+  if (res.status == 200) {
 
     const result = await res.json();
     console.log(result);
@@ -50,7 +43,7 @@ const loginUser = async event => {
       cookie.set('user_id', result.user_id);
       Router.push('/');
     }
-    
+
   } else {
     console.log(res.status);
   }

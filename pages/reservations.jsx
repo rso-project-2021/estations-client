@@ -1,14 +1,6 @@
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
-import Link from "next/link";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -43,7 +35,7 @@ const reservations = ({ reservations }) => {
               <TableBody>
                 {reservations && reservations.map((reservation) => (
                   <TableRow
-                    key={reservation.station_id}
+                    key={reservation.reservation_id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">{reservation.station_id}</TableCell>

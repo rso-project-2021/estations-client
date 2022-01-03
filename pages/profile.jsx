@@ -1,8 +1,4 @@
-import Button from '@mui/material/Button';
-import CardHeader from '@mui/material/CardHeader';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
-import Link from "next/link"
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -21,24 +17,24 @@ const profile = ({ user }) => {
     <>
       <Container maxWidth="lg">
         <Box m={3} pt={3}>
-        {user &&
-          <Grid container spacing={2} alignItems="center" justifyContent="center" direction="column">
-            <Grid item xs={12}>
-              <h1 style={{ textAlign: 'center' }}>Profile</h1>
-            </Grid>
-            <Grid item xs={12}>
-              <h3 style={{ textAlign: 'center' }}>{user.user_id}</h3>
-            </Grid>
-            <Grid item xs={12}>
-              <h3 style={{ textAlign: 'center' }}>{user.username}</h3>
-            </Grid>
-            <Grid item xs={12}>
-              <h3 style={{ textAlign: 'center' }}>{user.password}</h3>
-            </Grid>
-            <Grid item xs={12}>
-              <h3 style={{ textAlign: 'center' }}>{user.email}</h3>
-            </Grid>
-          </Grid>}
+          {user &&
+            <Grid container spacing={2} alignItems="center" justifyContent="center" direction="column">
+              <Grid item xs={12}>
+                <h1 style={{ textAlign: 'center' }}>Profile</h1>
+              </Grid>
+              <Grid item xs={12}>
+                <h3 style={{ textAlign: 'center' }}>{user.user_id}</h3>
+              </Grid>
+              <Grid item xs={12}>
+                <h3 style={{ textAlign: 'center' }}>{user.username}</h3>
+              </Grid>
+              <Grid item xs={12}>
+                <h3 style={{ textAlign: 'center' }}>{user.password}</h3>
+              </Grid>
+              <Grid item xs={12}>
+                <h3 style={{ textAlign: 'center' }}>{user.email}</h3>
+              </Grid>
+            </Grid>}
         </Box>
       </Container>
     </>
